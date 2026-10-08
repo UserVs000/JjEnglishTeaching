@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menu | Curso de Inglês</title>
+<meta name="description" content="Curso de inglês do A1 ao B2: informação, vocabulário, gramática, quiz e cadastro.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== Caderno de inglês: papel quadriculado, tinta azul, margem vermelha ===== */
+:root{
+  --paper:#f6f8fb; --line:#c9d5e8; --ink:#1d3fbb; --ink-dark:#142c85;
+  --text:#1b1f33; --muted:#586080; --margin:#e0344b; --mark:#ffe14d;
+  --ok:#1f8f5a; --bad:#cf2f3f; --soft:#eef2fb;
+  --f-head:"Bricolage Grotesque","Segoe UI","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible","Segoe UI",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;font-family:var(--f-body);font-size:17px;line-height:1.6;color:var(--text);
+  background-color:var(--paper);
+  background-image:linear-gradient(#e4ebf6 1px,transparent 1px),linear-gradient(90deg,#e4ebf6 1px,transparent 1px);
+  background-size:28px 28px;
+}
+h1,h2,h3{font-family:var(--f-head);line-height:1.12;margin:0 0 .5em;color:var(--ink-dark);letter-spacing:-.01em}
+h1{font-size:clamp(2.1rem,6vw,3.6rem);font-weight:800}
+h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800}
+h3{font-size:1.2rem;font-weight:700}
+p{margin:0 0 1em;max-width:68ch}
+a{color:var(--ink)}
+ul,ol{padding-left:1.3em;margin:0 0 1em}
+li{margin-bottom:.3em}
+:focus-visible{outline:3px solid #000;outline-offset:2px}
+[hidden]{display:none!important}
+
+.wrap{width:100%;max-width:1040px;margin:0 auto;padding:0 20px}
+main.wrap{position:relative;padding-top:28px;padding-bottom:56px}
+@media(min-width:1120px){
+  main.wrap::before{content:"";position:absolute;left:-16px;top:0;bottom:0;width:2px;background:var(--margin);opacity:.45}
+}
+.block{margin:44px 0}
+.lead{font-size:1.18rem;color:#2b3150}
+.muted{color:var(--muted)}
+.small{font-size:.92rem}
+
+/* ----- Cabeçalho ----- */
+.site-header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:2px solid var(--ink)}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--f-head);font-weight:800;font-size:1.15rem;color:var(--ink-dark);text-decoration:none}
+.brand-mark{display:inline-grid;place-items:center;width:36px;height:34px;background:var(--ink);color:#fff;border-radius:10px 10px 10px 0;font-size:.9rem}
+.nav{display:flex;flex-wrap:wrap;gap:2px}
+.nav a{padding:8px 10px;border-radius:6px;text-decoration:none;color:var(--text);font-weight:700;font-size:.95rem}
+.nav a:hover{background:var(--soft)}
+.nav a[aria-current="page"]{background:var(--mark);color:#000}
+.nav-toggle{display:none;min-height:40px;padding:6px 12px;border:2px solid var(--ink);border-radius:6px;background:#fff;color:var(--ink);font:700 .95rem var(--f-body);cursor:pointer}
+@media(max-width:1040px){
+  .nav-toggle{display:inline-flex;align-items:center}
+  .nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:#fff;border-bottom:2px solid var(--ink);padding:8px 14px 14px}
+  .nav.open{display:flex}
+  .nav a{padding:12px 10px}
+}
+
+/* ----- Rodapé ----- */
+.site-footer{border-top:2px solid var(--ink);background:#fff;padding:22px 0;color:var(--muted);font-size:.95rem}
+.site-footer p{margin:0 0 .3em}
+
+/* ----- Botões ----- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 18px;border-radius:6px;border:2px solid var(--ink);background:var(--ink);color:#fff;font:700 1rem var(--f-body);text-decoration:none;cursor:pointer}
+.btn:hover{background:var(--ink-dark);border-color:var(--ink-dark)}
+.btn.alt{background:#fff;color:var(--ink)}
+.btn.alt:hover{background:var(--soft)}
+.btn.wa{background:var(--ok);border-color:var(--ok)}
+.btn.wa:hover{background:#17724a;border-color:#17724a}
+.btn.danger{background:#fff;color:var(--bad);border-color:var(--bad)}
+.btn.danger:hover{background:#fdecee}
+.btn.sm{min-height:36px;padding:5px 12px;font-size:.9rem}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+
+/* ----- Painéis e grelhas ----- */
+.panel{background:#fff;border:1px solid var(--line);border-radius:6px;padding:20px}
+.panel.strong{border:2px solid var(--ink)}
+.panel h3{margin-bottom:.35em}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.facts .panel b{display:block;font-family:var(--f-head);font-size:1.15rem;color:var(--ink-dark);margin-bottom:2px}
+.facts .panel p{margin:0;color:#2b3150}
+.tag{display:inline-block;padding:2px 10px;border-radius:99px;background:var(--mark);color:#000;font-weight:700;font-size:.85rem}
+
+/* ----- Herói ----- */
+.hero{display:grid;gap:30px;padding:18px 0 10px}
+@media(min-width:860px){.hero{grid-template-columns:1.3fr 1fr;align-items:center}}
+.bubble{background:#fff;border:2px solid var(--ink);border-radius:26px 26px 26px 0;padding:24px}
+.bubble .label{font-size:.95rem;color:var(--muted);font-weight:700;margin-bottom:6px}
+.bubble .big{font-family:var(--f-head);font-weight:800;font-size:clamp(2rem,6vw,2.8rem);color:var(--ink-dark);line-height:1.05;overflow-wrap:anywhere}
+.bubble .pt{font-size:1.2rem;margin:6px 0 0;color:#2b3150}
+
+/* ----- Índice (menu em lista) ----- */
+.toc{list-style:none;margin:0;padding:0;background:#fff;border:1px solid var(--line);border-radius:6px}
+.toc li{margin:0}
+.toc li+li{border-top:1px solid var(--line)}
+.toc a{display:grid;grid-template-columns:1fr;gap:2px 16px;align-items:baseline;padding:14px 18px;text-decoration:none;color:var(--text)}
+.toc a:hover{background:#f3f6fd}
+.toc .t-name{font-family:var(--f-head);font-weight:800;font-size:1.3rem;color:var(--ink-dark)}
+.toc .t-desc{color:var(--muted)}
+@media(min-width:700px){.toc a{grid-template-columns:210px 1fr}}
+
+/* ----- FAQ ----- */
+details{background:#fff;border:1px solid var(--line);border-radius:6px;padding:0 18px}
+details+details{margin-top:10px}
+summary{cursor:pointer;font-weight:700;padding:14px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-weight:800;color:var(--ink);font-size:1.2rem;line-height:1}
+details[open] summary::after{content:"\2013"}
+details[open]{padding-bottom:8px}
+details p{margin-bottom:.6em}
+
+/* ----- Passos ----- */
+.steps{list-style:none;padding:0;margin:0;counter-reset:s;display:grid;gap:12px}
+.steps li{counter-increment:s;background:#fff;border:1px solid var(--line);border-radius:6px;padding:14px 16px 14px 60px;position:relative;margin:0}
+.steps li::before{content:counter(s);position:absolute;left:14px;top:12px;width:34px;height:34px;display:grid;place-items:center;background:var(--ink);color:#fff;border-radius:10px 10px 10px 0;font-family:var(--f-head);font-weight:800}
+
+/* ----- Títulos de página ----- */
+.page-head{padding:6px 0 18px;border-bottom:2px solid var(--ink);margin-bottom:28px}
+.page-head p{margin:0}
+
+/* ----- Tabelas ----- */
+.table-wrap{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:6px}
+table{width:100%;border-collapse:collapse;font-size:.97rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--soft);font-family:var(--f-head);color:var(--ink-dark);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.nowrap{white-space:nowrap}
+.empty{padding:26px;text-align:center;color:var(--muted)}
+
+/* ----- Formulários ----- */
+label{display:block;font-weight:700;margin-bottom:6px}
+.field{margin-bottom:18px}
+input,select,textarea{width:100%;min-height:46px;padding:10px 12px;font:inherit;color:var(--text);background:#fff;border:2px solid #b4c3dc;border-radius:6px}
+textarea{min-height:130px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px rgba(29,63,187,.22)}
+.hint{font-size:.9rem;color:var(--muted);margin:4px 0 0}
+.err{font-size:.92rem;color:var(--bad);font-weight:700;margin:4px 0 0}
+.field.invalid input,.field.invalid select,.field.invalid textarea{border-color:var(--bad)}
+.check{display:flex;gap:12px;align-items:flex-start}
+.check input{width:22px;height:22px;min-height:0;margin-top:4px;flex:none}
+.check label{font-weight:400;margin:0}
+.form-grid{display:grid;gap:0 18px}
+@media(min-width:700px){.form-grid{grid-template-columns:1fr 1fr}.form-grid .full{grid-column:1/-1}}
+.notice{padding:12px 14px;border-left:4px solid var(--ink);background:var(--soft);border-radius:0 6px 6px 0;margin-bottom:18px}
+.notice.warn{border-color:#c98a00;background:#fff7dd}
+.summary-list{list-style:none;padding:0;margin:0 0 6px}
+.summary-list li{display:flex;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);margin:0}
+.summary-list b{min-width:110px;color:var(--ink-dark)}
+
+/* ----- Chips ----- */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:7px 14px;border:2px solid var(--line);background:#fff;border-radius:99px;font:700 .92rem var(--f-body);color:var(--text);cursor:pointer;min-height:38px}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+
+/* ----- Vocabulário ----- */
+.words{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.word{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+.word b{font-family:var(--f-head);font-size:1.1rem;color:var(--ink-dark)}
+.word span{display:block;color:var(--muted);font-size:.95rem}
+
+/* ----- Gramática ----- */
+.say{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.say:last-child{border-bottom:0}
+.say em{font-style:normal;color:var(--muted);display:block;font-size:.93rem}
+
+/* ----- Quiz ----- */
+.progress{height:10px;background:#dfe7f5;border-radius:99px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--ink);transition:width .3s}
+.q-head{display:flex;justify-content:space-between;gap:10px;margin:10px 0 14px;font-weight:700;color:var(--muted);font-size:.95rem}
+.q-card{background:#fff;border:2px solid var(--ink);border-radius:26px 26px 26px 0;padding:24px}
+.q-text{font-family:var(--f-head);font-weight:800;font-size:clamp(1.35rem,3vw,1.8rem);color:var(--ink-dark);margin:0 0 16px;line-height:1.2}
+.opts{display:grid;gap:10px}
+.opt{text-align:left;font:700 1rem var(--f-body);color:var(--text);padding:12px 14px;min-height:50px;border:2px solid #b4c3dc;border-radius:6px;background:#fff;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--ink);background:#f3f6fd}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--ok);background:#e6f6ee}
+.opt.wrong{border-color:var(--bad);background:#fdecee}
+.feedback{margin-top:14px;font-weight:700;min-height:1.6em}
+.score-big{font-family:var(--f-head);font-weight:800;font-size:clamp(3rem,12vw,5rem);color:var(--ink-dark);line-height:1}
+
+/* ----- Administrador ----- */
+.tabs{display:flex;flex-wrap:wrap;gap:6px;border-bottom:2px solid var(--ink);margin-bottom:20px}
+.tab{padding:10px 16px;border:2px solid transparent;border-bottom:0;border-radius:6px 6px 0 0;background:transparent;font:700 1rem var(--f-body);color:var(--text);cursor:pointer}
+.tab:hover{background:var(--soft)}
+.tab[aria-selected="true"]{background:var(--ink);color:#fff}
+.stat b{display:block;font-family:var(--f-head);font-size:2.3rem;color:var(--ink-dark);line-height:1}
+.stat span{color:var(--muted);font-weight:700}
+.bars{display:grid;gap:8px}
+.bar-row{display:grid;grid-template-columns:130px 1fr 34px;gap:10px;align-items:center;font-size:.95rem}
+.bar-row i{display:block;height:14px;background:var(--ink);border-radius:3px;min-width:2px}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin-bottom:14px}
+.toolbar .field{margin:0;flex:1 1 200px}
+dialog{max-width:560px;width:calc(100% - 32px);border:2px solid var(--ink);border-radius:10px;padding:22px}
+dialog::backdrop{background:rgba(20,30,70,.45)}
+
+/* ----- Aviso (toast) ----- */
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);max-width:92vw;background:#1b1f33;color:#fff;padding:12px 18px;border-radius:8px;font-weight:700;z-index:100;box-shadow:0 6px 24px rgba(0,0,0,.25)}
+
+/* ----- Impressão ----- */
+@media print{
+  body{background:#fff;font-size:12pt}
+  .site-header,.site-footer,.no-print,.tabs,.toolbar,.btn{display:none!important}
+  main.wrap::before{display:none}
+  .table-wrap{border:0;overflow:visible}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body data-page="index">
+<header id="site-header"></header>
+
+<main class="wrap" id="conteudo">
+
+  <section class="hero">
+    <div>
+      <h1>Aprende inglês passo a passo, do A1 ao B2.</h1>
+      <p class="lead">Aulas práticas, vocabulário todos os dias e um quiz para veres o que já sabes. Faz o cadastro, escolhe o teu turno e começa.</p>
+      <div class="actions">
+        <a class="btn" href="cadastro.html">Fazer cadastro</a>
+        <a class="btn alt" href="quiz.html">Testar no quiz</a>
+      </div>
+    </div>
+    <aside class="bubble" aria-labelledby="wotd-label">
+      <div class="label" id="wotd-label">Palavra do dia</div>
+      <div class="big" id="wotd-en">hello</div>
+      <p class="pt" id="wotd-pt">olá</p>
+      <div class="actions">
+        <button class="btn sm" type="button" id="wotd-say">Ouvir</button>
+        <button class="btn sm alt" type="button" id="wotd-next">Outra palavra</button>
+      </div>
+    </aside>
+  </section>
+
+  <section class="block" aria-labelledby="h-indice">
+    <h2 id="h-indice">Onde queres ir?</h2>
+    <ul class="toc">
+      <li><a href="curso.html"><span class="t-name">Curso</span><span class="t-desc">Níveis, horários, avaliação, certificado e regras.</span></a></li>
+      <li><a href="vocabulario.html"><span class="t-name">Vocabulário</span><span class="t-desc">Mais de 100 palavras por categoria, com pronúncia em áudio.</span></a></li>
+      <li><a href="gramatica.html"><span class="t-name">Gramática</span><span class="t-desc">Verbo to be, artigos, plural, present simple e perguntas.</span></a></li>
+      <li><a href="quiz.html"><span class="t-name">Quiz</span><span class="t-desc">10 perguntas aleatórias sobre o curso e vocabulário.</span></a></li>
+      <li><a href="cadastro.html"><span class="t-name">Cadastro</span><span class="t-desc">Inscreve-te no curso em 2 minutos.</span></a></li>
+      <li><a href="mensagem.html"><span class="t-name">Mensagem</span><span class="t-desc">Envia uma mensagem ao administrador pelo WhatsApp.</span></a></li>
+      <li><a href="admin.html"><span class="t-name">Administrador</span><span class="t-desc">Área protegida por senha para ver os cadastrados.</span></a></li>
+    </ul>
+  </section>
+
+  <section class="block" aria-labelledby="h-resumo">
+    <h2 id="h-resumo">O curso em resumo</h2>
+    <div class="grid g3 facts">
+      <div class="panel"><b>4 níveis</b><p>A1 Iniciante, A2 Elementar, B1 Intermédio e B2 Intermédio-avançado.</p></div>
+      <div class="panel"><b>3 meses por nível</b><p>Cada módulo tem 12 semanas de aulas e termina com um teste.</p></div>
+      <div class="panel"><b>2 aulas por semana</b><p>Aulas de 90 minutos, em pequenos grupos.</p></div>
+      <div class="panel"><b>3 turnos</b><p>Manhã (08:00), tarde (14:00) ou noite (18:00).</p></div>
+      <div class="panel"><b>Clube de Conversação</b><p>Todos os sábados, das 09:00 às 11:00, aberto a todos os níveis.</p></div>
+      <div class="panel"><b>Certificado</b><p>Recebes certificado em cada nível concluído com nota 10 em 20 ou mais.</p></div>
+    </div>
+    <div class="actions"><a class="btn alt" href="curso.html">Ver tudo sobre o curso</a></div>
+  </section>
+
+  <section class="block" aria-labelledby="h-comecar">
+    <h2 id="h-comecar">Como começar</h2>
+    <ol class="steps">
+      <li><strong>Preenche o cadastro.</strong> São só alguns dados e a escolha do turno.</li>
+      <li><strong>Faz o quiz.</strong> Vê quanto vocabulário já conheces e treina antes da primeira aula.</li>
+      <li><strong>Começa as aulas.</strong> O administrador confirma a tua vaga pelo WhatsApp.</li>
+    </ol>
+  </section>
+
+  <section class="block" aria-labelledby="h-faq">
+    <h2 id="h-faq">Perguntas frequentes</h2>
+    <details>
+      <summary>Preciso de saber inglês para começar?</summary>
+      <p>Não. O nível A1 é para quem nunca estudou inglês. Começas com cumprimentos, números, cores e frases simples.</p>
+    </details>
+    <details>
+      <summary>Com que idade posso entrar?</summary>
+      <p>O curso é para jovens a partir dos 10 anos e para adultos. As turmas são organizadas por nível e por turno.</p>
+    </details>
+    <details>
+      <summary>Não sei qual é o meu nível. O que faço?</summary>
+      <p>No cadastro escolhe "Ainda não sei". Também podes fazer o <a href="quiz.html">quiz</a> para teres uma ideia do vocabulário que já conheces. O professor confirma o nível na primeira aula.</p>
+    </details>
+    <details>
+      <summary>Quanto tempo demora a acabar o curso?</summary>
+      <p>Cada nível dura 3 meses. Quem faz os 4 níveis seguidos conclui o curso em 12 meses.</p>
+    </details>
+    <details>
+      <summary>Posso mudar de turno?</summary>
+      <p>Sim, se houver vaga no turno pretendido. Envia uma mensagem ao administrador na página <a href="mensagem.html">Mensagem</a>.</p>
+    </details>
+    <details>
+      <summary>O que acontece se eu faltar a uma aula?</summary>
+      <p>Avisa o professor ou o administrador. Podes recuperar a matéria no Clube de Conversação de sábado e nas fichas disponíveis no site.</p>
+    </details>
+    <details>
+      <summary>Como recebo o certificado?</summary>
+      <p>Ao terminar um nível com nota 10 em 20 ou mais e com pelo menos 75% de presenças, recebes o certificado desse nível.</p>
+    </details>
+  </section>
+
+</main>
+
+<footer id="site-footer"></footer>
+<script>
+/* =====================================================
+   CONFIGURAÇÃO DO SITE  (edita só este ficheiro)
+   ===================================================== */
+window.CONFIG = {
+  // Nome que aparece no topo de todas as páginas
+  SITE_NAME: "Curso de Inglês",
+
+  // WhatsApp do administrador: indicativo + número, sem "+" e sem espaços.
+  // ATENÇÃO: este é um número de exemplo. Troca pelo número verdadeiro.
+  WHATSAPP: "244900000000",
+
+  // Indicativo usado quando um aluno escreve só os 9 dígitos do telemóvel
+  DDI: "244",
+
+  // Senha da área do administrador (página "Administrador")
+  ADMIN_SENHA: "admin123"
+};
+</script>
+<script>
+/* =====================================================
+   Funções comuns a todas as páginas + dados (vocabulário e quiz)
+   ===================================================== */
+(function () {
+  "use strict";
+  const C = window.CONFIG || {};
+
+  /* ---------- Menu principal ---------- */
+  const NAV = [
+    ["index", "index.html", "Menu"],
+    ["curso", "curso.html", "Curso"],
+    ["vocabulario", "vocabulario.html", "Vocabulário"],
+    ["gramatica", "gramatica.html", "Gramática"],
+    ["quiz", "quiz.html", "Quiz"],
+    ["cadastro", "cadastro.html", "Cadastro"],
+    ["mensagem", "mensagem.html", "Mensagem"],
+    ["admin", "admin.html", "Administrador"]
+  ];
+
+  /* ---------- Utilitários ---------- */
+  const esc = (s) =>
+    String(s == null ? "" : s).replace(/[&<>"']/g, (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  const Store = {
+    get(key, fallback) {
+      try {
+        const v = localStorage.getItem(key);
+        return v ? JSON.parse(v) : fallback;
+      } catch (e) { return fallback; }
+    },
+    set(key, value) {
+      try { localStorage.setItem(key, JSON.stringify(value)); return true; }
+      catch (e) { return false; }
+    }
+  };
+
+  const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  const digits = (s) => String(s || "").replace(/\D/g, "");
+
+  function fmtDate(iso) {
+    try {
+      return new Date(iso).toLocaleString("pt-PT", {
+        day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit"
+      });
+    } catch (e) { return iso || ""; }
+  }
+
+  function fullNumber(num) {
+    const d = digits(num);
+    return d.length <= 9 && C.DDI ? C.DDI + d : d;
+  }
+
+  function waLink(text, number) {
+    return "https://wa.me/" + fullNumber(number || C.WHATSAPP) + "?text=" + encodeURIComponent(text);
+  }
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  let toastTimer;
+  function toast(msg) {
+    let t = document.getElementById("toast");
+    if (!t) {
+      t = document.createElement("div");
+      t.id = "toast"; t.className = "toast"; t.setAttribute("role", "status");
+      document.body.appendChild(t);
+    }
+    t.textContent = msg; t.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { t.hidden = true; }, 3200);
+  }
+
+  function speak(text) {
+    if (!("speechSynthesis" in window)) { toast("Este navegador não tem áudio de pronúncia."); return; }
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "en-US"; u.rate = 0.85;
+    window.speechSynthesis.speak(u);
+  }
+
+  function download(filename, content, type) {
+    const blob = new Blob([content], { type: type || "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  /* ---------- Cabeçalho e rodapé ---------- */
+  function renderChrome() {
+    const page = document.body.getAttribute("data-page") || "";
+    const header = document.getElementById("site-header");
+    if (header) {
+      const links = NAV.map((n) =>
+        `<a href="${n[1]}"${n[0] === page ? ' aria-current="page"' : ""}>${n[2]}</a>`).join("");
+      header.className = "site-header";
+      header.innerHTML =
+        `<div class="wrap">
+           <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">EN</span><span>${esc(C.SITE_NAME)}</span></a>
+           <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">&#9776; Páginas</button>
+           <nav class="nav" id="nav" aria-label="Principal">${links}</nav>
+         </div>`;
+      const btn = header.querySelector(".nav-toggle");
+      const nav = header.querySelector(".nav");
+      btn.addEventListener("click", () => {
+        const open = nav.classList.toggle("open");
+        btn.setAttribute("aria-expanded", String(open));
+      });
+    }
+    const footer = document.getElementById("site-footer");
+    if (footer) {
+      footer.className = "site-footer";
+      footer.innerHTML =
+        `<div class="wrap">
+           <p><strong>${esc(C.SITE_NAME)}</strong>: do A1 ao B2, com aulas práticas e muita conversação.</p>
+           <p>Ficou com dúvidas? Usa a página <a href="mensagem.html">Mensagem</a> e fala com o administrador pelo WhatsApp.</p>
+         </div>`;
+    }
+  }
+
+  /* ---------- Vocabulário (en, pt) por categoria ---------- */
+  const VOCAB_GROUPS = {
+    "Cumprimentos": [["hello","olá"],["goodbye","adeus"],["good morning","bom dia"],["good afternoon","boa tarde"],["good night","boa noite"],["please","por favor"],["thank you","obrigado(a)"],["sorry","desculpa"],["welcome","bem-vindo(a)"],["yes","sim"],["no","não"],["see you later","até logo"]],
+    "Números": [["one","um"],["two","dois"],["three","três"],["four","quatro"],["five","cinco"],["six","seis"],["seven","sete"],["eight","oito"],["nine","nove"],["ten","dez"],["twenty","vinte"],["hundred","cem"]],
+    "Cores": [["red","vermelho"],["blue","azul"],["green","verde"],["yellow","amarelo"],["black","preto"],["white","branco"],["orange","laranja"],["pink","rosa"],["purple","roxo"],["brown","castanho"],["grey","cinzento"]],
+    "Família": [["mother","mãe"],["father","pai"],["brother","irmão"],["sister","irmã"],["grandmother","avó"],["grandfather","avô"],["son","filho"],["daughter","filha"],["uncle","tio"],["aunt","tia"],["cousin","primo(a)"],["friend","amigo(a)"]],
+    "Dias e meses": [["Monday","segunda-feira"],["Tuesday","terça-feira"],["Wednesday","quarta-feira"],["Thursday","quinta-feira"],["Friday","sexta-feira"],["Saturday","sábado"],["Sunday","domingo"],["January","janeiro"],["June","junho"],["December","dezembro"]],
+    "Escola": [["teacher","professor(a)"],["student","aluno(a)"],["book","livro"],["notebook","caderno"],["pen","caneta"],["pencil","lápis"],["desk","carteira"],["classroom","sala de aula"],["blackboard","quadro"],["homework","trabalho de casa"],["lesson","aula"],["exam","exame"]],
+    "Comida": [["water","água"],["bread","pão"],["rice","arroz"],["chicken","frango"],["fish","peixe"],["egg","ovo"],["milk","leite"],["apple","maçã"],["mango","manga"],["orange juice","sumo de laranja"],["salt","sal"],["cake","bolo"]],
+    "Animais": [["dog","cão"],["cat","gato"],["bird","pássaro"],["horse","cavalo"],["cow","vaca"],["lion","leão"],["elephant","elefante"],["monkey","macaco"],["snake","cobra"],["goat","cabra"],["pig","porco"]],
+    "Corpo": [["head","cabeça"],["hand","mão"],["foot","pé"],["eye","olho"],["ear","orelha"],["nose","nariz"],["mouth","boca"],["arm","braço"],["leg","perna"],["hair","cabelo"],["heart","coração"]],
+    "Verbos": [["to eat","comer"],["to drink","beber"],["to sleep","dormir"],["to read","ler"],["to write","escrever"],["to speak","falar"],["to listen","ouvir"],["to run","correr"],["to walk","caminhar"],["to study","estudar"],["to work","trabalhar"],["to play","brincar"]],
+    "Casa": [["house","casa"],["door","porta"],["window","janela"],["bed","cama"],["kitchen","cozinha"],["bathroom","casa de banho"],["table","mesa"],["chair","cadeira"],["garden","jardim"],["street","rua"]],
+    "Adjectivos": [["big","grande"],["small","pequeno"],["hot","quente"],["cold","frio"],["happy","feliz"],["sad","triste"],["fast","rápido"],["slow","lento"],["new","novo"],["old","velho"],["beautiful","bonito"],["difficult","difícil"],["easy","fácil"]]
+  };
+
+  const VOCAB = [];
+  Object.keys(VOCAB_GROUPS).forEach((cat) =>
+    VOCAB_GROUPS[cat].forEach((p) => VOCAB.push({ en: p[0], pt: p[1], cat })));
+
+  /* ---------- Perguntas sobre o curso (devem bater com a página Curso) ---------- */
+  const COURSE_QUIZ = [
+    { q: "Quantos níveis tem o curso de inglês?", opts: ["2", "3", "4", "6"], a: 2, why: "São 4 níveis: A1, A2, B1 e B2." },
+    { q: "Qual é o primeiro nível do curso?", opts: ["A1 Iniciante", "A2 Elementar", "B1 Intermédio", "B2 Avançado"], a: 0, why: "Todos começam no A1, mesmo sem saber inglês." },
+    { q: "Quantas aulas por semana tem cada turma?", opts: ["1", "2", "4", "6"], a: 1, why: "Cada turma tem 2 aulas por semana." },
+    { q: "Quanto dura cada nível (módulo)?", opts: ["1 mês", "3 meses", "6 meses", "1 ano"], a: 1, why: "Cada nível dura 12 semanas, ou seja, 3 meses." },
+    { q: "Quanto tempo dura cada aula?", opts: ["30 minutos", "45 minutos", "90 minutos", "4 horas"], a: 2, why: "Cada aula tem 90 minutos." },
+    { q: "Qual destas NÃO é uma competência trabalhada no curso?", opts: ["Listening", "Speaking", "Cooking", "Writing"], a: 2, why: "As 4 competências são Listening, Speaking, Reading e Writing." },
+    { q: "Qual é a nota mínima para passar de nível?", opts: ["5 em 20", "8 em 20", "10 em 20", "15 em 20"], a: 2, why: "É preciso nota 10 em 20 ou mais." },
+    { q: "Em que dia da semana há o Clube de Conversação?", opts: ["Segunda-feira", "Quinta-feira", "Sexta-feira", "Sábado"], a: 3, why: "O Clube de Conversação é ao sábado de manhã." },
+    { q: "O que recebes ao concluir um nível com aproveitamento?", opts: ["Um certificado", "Um telemóvel", "Uma viagem", "Nada"], a: 0, why: "Cada nível concluído dá direito a certificado." },
+    { q: "O que deves fazer primeiro para entrar no curso?", opts: ["Preencher o cadastro", "Comprar um dicionário", "Viajar para Londres", "Esperar um ano"], a: 0, why: "O primeiro passo é preencher a página de Cadastro." },
+    { q: "Qual turno começa às 18:00?", opts: ["Manhã", "Tarde", "Noite", "Madrugada"], a: 2, why: "O turno da noite é das 18:00 às 19:30." },
+    { q: "Em que página do site podes ouvir a pronúncia das palavras?", opts: ["Vocabulário", "Administrador", "Mensagem", "Cadastro"], a: 0, why: "Na página Vocabulário há um botão Ouvir em cada palavra." }
+  ];
+
+  /* ---------- Gerador do quiz ---------- */
+  function vocabQuestion(w) {
+    const sameCat = VOCAB.filter((x) => x.cat === w.cat && x.en !== w.en);
+    const pool = sameCat.length >= 3 ? sameCat : VOCAB.filter((x) => x.en !== w.en);
+    const wrong = shuffle(pool).slice(0, 3);
+    const toPt = Math.random() < 0.5;
+    const options = shuffle([w].concat(wrong));
+    const key = toPt ? "pt" : "en";
+    return {
+      tag: "Vocabulário: " + w.cat,
+      q: toPt ? `O que significa "${w.en}"?` : `Como se diz "${w.pt}" em inglês?`,
+      opts: options.map((o) => o[key]),
+      a: options.indexOf(w),
+      why: `"${w.en}" significa "${w.pt}".`,
+      say: w.en
+    };
+  }
+
+  function courseQuestion(item) {
+    const correct = item.opts[item.a];
+    const opts = shuffle(item.opts);
+    return { tag: "Sobre o curso", q: item.q, opts, a: opts.indexOf(correct), why: item.why, say: null };
+  }
+
+  function buildQuiz(total, courseCount) {
+    total = total || 10; courseCount = courseCount == null ? 4 : courseCount;
+    const c = shuffle(COURSE_QUIZ).slice(0, courseCount).map(courseQuestion);
+    const v = shuffle(VOCAB).slice(0, total - c.length).map(vocabQuestion);
+    return shuffle(c.concat(v));
+  }
+
+  /* ---------- Arranque ---------- */
+  document.addEventListener("DOMContentLoaded", () => {
+    renderChrome();
+    document.addEventListener("click", (e) => {
+      const el = e.target.closest("[data-say]");
+      if (el) speak(el.getAttribute("data-say"));
+    });
+  });
+
+  window.EI = {
+    C, NAV, esc, Store, uid, digits, fmtDate, fullNumber, waLink, shuffle,
+    toast, speak, download, VOCAB_GROUPS, VOCAB, COURSE_QUIZ, buildQuiz
+  };
+})();
+</script>
+<script>
+(function () {
+  const EI = window.EI;
+  const en = document.getElementById("wotd-en");
+  const pt = document.getElementById("wotd-pt");
+  let current;
+  function show(w) { current = w; en.textContent = w.en; pt.textContent = w.pt; }
+  const dayIndex = Math.floor(Date.now() / 86400000) % EI.VOCAB.length;
+  show(EI.VOCAB[dayIndex]);
+  document.getElementById("wotd-say").addEventListener("click", () => EI.speak(current.en));
+  document.getElementById("wotd-next").addEventListener("click", () => {
+    let w;
+    do { w = EI.VOCAB[Math.floor(Math.random() * EI.VOCAB.length)]; } while (w === current);
+    show(w);
+  });
+})();
+</script>
+</body>
+</html>
